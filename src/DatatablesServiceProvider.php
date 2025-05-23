@@ -15,7 +15,7 @@ class DatatablesServiceProvider extends ServiceProvider
          * Optional methods to load your package assets
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'datatables');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'datatables');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'datatables');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -51,10 +51,5 @@ class DatatablesServiceProvider extends ServiceProvider
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'datatables');
-
-        // Register the main class to use with the facade
-        $this->app->singleton('datatables', function () {
-            return new Datatables;
-        });
     }
 }

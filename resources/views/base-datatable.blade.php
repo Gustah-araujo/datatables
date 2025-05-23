@@ -37,4 +37,5 @@
         </tbody>
     </table>
 
+    {!! $this->paginationLinks() !!}
 </div>

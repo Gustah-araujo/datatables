@@ -57,6 +57,20 @@ abstract class BaseDatatable extends Component
         return $this->getData();
     }
 
+    public function paginationLinks()
+    {
+        $data = $this->data();
+
+        switch (true) {
+            case $data instanceof LengthAwarePaginator:
+                return $data->links('datatables::pagination.query-pagination');
+                break;
+
+            default:
+                # code...
+                break;
+        }
+    }
 
     public final function render()
     {

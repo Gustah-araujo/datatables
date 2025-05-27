@@ -28,10 +28,6 @@ trait HasSorting
 
     public function applySorting(EloquentBuilder|QueryBuilder|array|Collection $query)
     {
-        if (is_null($this->sortColumn)) {
-            return $query;
-        }
-
         switch (true) {
             case $query instanceof EloquentBuilder:
                 $this->applySortingToEloquentBuilder($query);

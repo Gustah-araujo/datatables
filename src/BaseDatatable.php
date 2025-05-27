@@ -5,7 +5,7 @@ namespace GustahAraujo\Datatables;
 use GustahAraujo\Datatables\Traits\HasSorting;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -51,6 +51,20 @@ abstract class BaseDatatable extends Component
         }
     }
 
+    public function ensureSortColumnIsSet()
+    {
+        if (is_null($this->sortColumn)) {
+
+            if (method_exists($this, 'getDefaultSortColumn')) {
+                $this->sortColumn = $this->getDefaultSortColumn();
+            } else {
+                $firstColumn = $this->columns()[ array_key_first($this->columns()) ];
+                $this->sortColumn = $firstColumn->getName();
+            }
+
+        }
+    }
+
     #[Computed]
     public function data()
     {
@@ -74,6 +88,8 @@ abstract class BaseDatatable extends Component
 
     public final function render()
     {
+        $this->ensureSortColumnIsSet();
+
         return view('datatables::base-datatable');
     }
 }

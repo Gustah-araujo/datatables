@@ -2,40 +2,51 @@
 
     @once
         <style>
-            table {
+            /* table {
                 border-collapse: collapse;
                 width: 100%;
-            }
-
-            table, th, td {
-                border: 1px solid #444;
-            }
+            } */
         </style>
     @endonce
 
-    This is a test datatable
+    <div class="grid gap-3">
 
-    <table>
-        <thead>
-            <tr>
-                @foreach ($this->columns() as $column)
-                    {!! $column->renderHeader() !!}
-                @endforeach
-            </tr>
-        </thead>
-
-        <tbody>
-            @forelse ($this->data as $item)
-                <tr>
+        <table class="!w-full !min-w-full !max-w-full border">
+            <thead>
+                <tr @class([
+                    // Light Styles
+                    "bg-gray-400 text-black",
+                    // Dark Styles
+                    "dark:bg-gray-800 dark:text-white",
+                ])>
                     @foreach ($this->columns() as $column)
-                        {!! $column->renderRow($item) !!}
+                        {!! $column->renderHeader() !!}
                     @endforeach
                 </tr>
-            @empty
+            </thead>
 
-            @endforelse
-        </tbody>
-    </table>
+            <tbody>
+                @forelse ($this->data as $item)
+                    <tr @class([
+                        "transition",
+                        // Light Styles
+                        "odd:bg-gray-50 even:bg-gray-200 text-black hover:bg-gray-400",
+                        // Dark Styles
+                        "dark:odd:bg-gray-500 dark:even:bg-gray-700 dark:text-white dark:hover:bg-gray-900",
+                    ])>
+                        @foreach ($this->columns() as $column)
+                            {!! $column->renderRow($item) !!}
+                        @endforeach
+                    </tr>
+                @empty
 
-    {!! $this->paginationLinks() !!}
+                @endforelse
+            </tbody>
+        </table>
+
+        <div>
+            {!! $this->paginationLinks() !!}
+        </div>
+    </div>
+
 </div>
